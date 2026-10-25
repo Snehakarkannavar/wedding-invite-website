@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#6B1020" />
+    <title>Pavithra M. &amp; Purna Abhishek V. | Wedding Invitation</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        :root {
+            --maroon: #6B1020;
+            --maroon-deep: #4A0A15;
+            --gold: #C4913A;
+            --gold-light: #E2B05A;
+            --cream: #FDF6EC;
+            --text: #3A1A10;
+        }
+
+        * { box-sizing: border-box; }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden;
+            background: var(--cream);
+            color: var(--text);
+            font-family: "Cormorant Garamond", serif;
+            scroll-behavior: smooth;
+        }
+
+        body.is-locked { overflow: hidden; }
+
+        img,
+        video { display: block; max-width: 100%; }
+
+        .container { width: min(94vw, 460px); margin: 0 auto; }
+
+        .teaser {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            display: grid;
+            place-items: center;
+            background: #0f1816;
+            isolation: isolate;
+            transition: opacity 0.7s ease, visibility 0.7s ease;
+        }
+
+        .teaser.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .teaser__video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.62;
+        }
+
+        .teaser::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 28%, rgba(10, 13, 12, 0.76) 100%);
+        }
+
+        .teaser__content {
+            position: relative;
+            z-index: 1;
+            width: min(92vw, 700px);
+            padding: 24px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .teaser__title {
+            margin: 0 0 10px;
+            font-family: "Great Vibes", cursive;
+            font-size: clamp(2.8rem, 10vw, 5rem);
+            font-weight: 400;
+        }
+
+        .teaser__text {
+            margin: 0 0 22px;
+            font-size: 1.06rem;
+            line-height: 1.7;
+        }
+
+        .teaser-credit {
+            position: absolute;
+            right: 14px;
+            bottom: 14px;
+            transform: none;
+            z-index: 2;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.62);
+            font: italic 500 0.7rem/1.2 "Playfair Display", serif;
+            letter-spacing: 0.02em;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .eyebrow {
+            margin: 0 0 8px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font: 600 0.72rem/1.2 "Cinzel", serif;
+        }
+
+        .eyebrow--light { color: #f1d9a1; }
+
+        .btn {
+            border: 0;
+            border-radius: 999px;
+            min-height: 44px;
+            padding: 12px 22px;
+            font: 700 0.86rem/1 "Cinzel", serif;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+        }
+
+        .btn--primary {
+            background: linear-gradient(120deg, #c8ac72, #b99a5b);
+            color: #fff;
+        }
+
+
+        .main-content {
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .section {
+            padding: 18px 0;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            background: #fdf6ec;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-slider {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+
+        .hero-slider .swiper-slide {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-slider .swiper-slide::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(11, 6, 8, 0.2), rgba(253, 246, 236, 0.44));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            padding: 24px;
+            width: min(92vw, 480px);
+            pointer-events: none;
+        }
+
+        .hero-credit {
+            margin: 0 0 14px;
+            color: #5b1223;
+            font: 600 0.68rem/1.2 "Cinzel", serif;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            text-shadow: 0 1px 10px rgba(255, 255, 255, 0.85);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            left: 50%;
+            bottom: 28px;
+            transform: translateX(-50%);
+            z-index: 5;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(107, 16, 32, 0.28);
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--maroon);
+            font: 700 1.5rem/1 "Cinzel", serif;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+            animation: scrollBounce 2s infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            40% {
+                transform: translateX(-50%) translateY(-8px);
+            }
+
+            60% {
+                transform: translateX(-50%) translateY(-4px);
+            }
+        }
+
+        .hero-names {
+            margin: 0 0 8px;
+            color: var(--maroon);
+            font: 400 clamp(2.8rem, 12vw, 4.3rem)/1.05 "Great Vibes", cursive;
+            text-shadow: 0 4px 14px rgba(255, 255, 255, 0.78);
+        }
+
+        .hero-date {
+            margin: 4px 0;
+            color: #5b1223;
+            font: 700 0.95rem/1.55 "Cinzel", serif;
+            letter-spacing: 0.06em;
+            text-shadow: 0 1px 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--maroon) !important;
+            background: rgba(255, 255, 255, 0.74);
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50%;
+            border: 1px solid rgba(107, 16, 32, 0.2);
+        }
+
+        .hero-slider .swiper-button-next,
+        .hero-slider .swiper-button-prev {
+            z-index: 7;
+            pointer-events: auto;
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 1.06rem !important;
+            font-weight: 700;
+        }
+
+        .full-width-card {
+            border-top: 1px solid rgba(196, 145, 58, 0.28);
+            border-bottom: 1px solid rgba(196, 145, 58, 0.28);
+            overflow: hidden;
+        }
+
+        .full-width-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .story-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(196, 145, 58, 0.24);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .story-card img { width: 100%; height: 240px; object-fit: cover; }
+
+        .story-card-content { padding: 22px 20px; text-align: center; }
+
+        .story-card h2 {
+            margin: 0 0 12px;
+            color: var(--maroon);
+            font: 400 2.95rem/1 "Great Vibes", cursive;
+        }
+
+        .story-card p {
+            margin: 0;
+            color: #5b4130;
+            font: italic 600 1.18rem/1.65 "Cormorant Garamond", serif;
+        }
+
+        .couple-intro {
+            display: grid;
+            gap: 14px;
+            background: #fdfaf6;
+            border-radius: 20px;
+            border: 1px dashed var(--gold-light);
+            padding: 16px;
+        }
+
+        .couple-intro-title {
+            margin: 2px 2px 0;
+            text-align: center;
+            color: #7b3a45;
+            font: 600 0.8rem/1.2 "Cinzel", serif;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        .couple-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 18px;
+            border: 1px solid rgba(226, 176, 90, 0.24);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.07);
+        }
+
+        .couple-card img {
+            width: 108px;
+            height: 108px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--gold);
+            flex-shrink: 0;
+        }
+
+        .couple-card h3 {
+            margin: 0 0 5px;
+            color: var(--maroon);
+            font: 700 1.36rem/1.2 "Playfair Display", serif;
+        }
+
+        .couple-role {
+            margin: 0 0 6px;
+            color: #8a5b21;
+            font: 700 0.86rem/1.2 "Cinzel", serif;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .couple-card p {
+            margin: 0;
+            font: 600 1.04rem/1.5 "Cormorant Garamond", serif;
+            color: #563727;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 0 0 8px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            color: var(--maroon);
+            font: 700 clamp(2.1rem, 10vw, 3rem)/1.05 "Cinzel", serif;
+        }
+
+        .section-kicker {
+            margin: 0 0 6px;
+            color: #7d3645;
+            font: 600 0.72rem/1.2 "Cinzel", serif;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .carousel-shell {
+            background: rgba(255, 255, 255, 0.48);
+            border: 1px solid rgba(196, 145, 58, 0.26);
+            border-radius: 16px;
+            padding: 8px;
+        }
+
+        .horizontalSwiper .swiper-slide {
+            width: 290px;
+            height: 210px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 3px solid #fff;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+        }
+
+        .preWeddingSwiper .swiper-slide {
+            width: 250px;
+            height: 360px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 4px solid #fff;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.17);
+        }
+
+        .horizontalSwiper img,
+        .preWeddingSwiper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .swiper-pagination-bullet-active { background: #2f7ef5 !important; }
+
+        .video-stage {
+            position: relative;
+            min-height: 88vh;
+            display: grid;
+            align-items: end;
+            overflow: hidden;
+            border-top: 1px solid rgba(196, 145, 58, 0.25);
+            border-bottom: 1px solid rgba(196, 145, 58, 0.25);
+        }
+
+        .video-stage__bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-stage__overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10, 8, 9, 0.24), rgba(10, 8, 9, 0.68));
+        }
+
+        .video-stage__content {
+            position: relative;
+            z-index: 1;
+            padding: 26px 16px;
+            text-align: center;
+            color: #f9f0d7;
+            backdrop-filter: blur(2px);
+        }
+
+        .video-stage__content h2 {
+            margin: 0 0 8px;
+            color: #fff4d7;
+            font: 700 clamp(2.2rem, 9vw, 3rem)/1.06 "Cinzel", serif;
+        }
+
+        .video-stage__content p {
+            margin: 0;
+            font: 500 1rem/1.6 "Cormorant Garamond", serif;
+        }
+
+        .event-details__title {
+            margin: 0 0 16px;
+            color: var(--maroon);
+            font: 700 1.55rem/1.2 "Cinzel", serif;
+            text-align: center;
+        }
+
+        .event-days {
+            display: grid;
+            gap: 12px;
+        }
+
+        .event-day {
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(196, 145, 58, 0.3);
+            border-left: 4px solid var(--gold);
+            border-radius: 10px;
+        }
+
+        .event-day__label {
+            margin: 0 0 5px;
+            color: #8a5b21;
+            font: 700 0.7rem/1.3 "Cinzel", serif;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .event-day h3 {
+            margin: 0 0 6px;
+            color: var(--maroon);
+            font: 600 1.18rem/1.35 "Playfair Display", serif;
+        }
+
+        .event-day p:last-child {
+            margin: 0;
+            color: #5d3e2d;
+            font: 500 1rem/1.5 "Cormorant Garamond", serif;
+        }
+
+        .venue-wrapper {
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(196, 145, 58, 0.3);
+            border-radius: 14px;
+            padding: 14px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+        }
+
+        .venue-info {
+            text-align: center;
+            margin: 0 auto 10px;
+            max-width: 390px;
+        }
+
+        .venue-info h3 {
+            margin: 0 0 7px;
+            color: var(--maroon);
+            font: 700 clamp(1.2rem, 5.2vw, 1.55rem)/1.25 "Cinzel", serif;
+        }
+
+        .venue-info p {
+            margin: 0;
+            color: #5d3e2d;
+            font: 500 0.98rem/1.45 "Cormorant Garamond", serif;
+        }
+
+        .venue-map-link {
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .map-container {
+            height: 230px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(196, 145, 58, 0.3);
+        }
+
+        .invitation-section {
+            background: #fff0f5;
+            padding: 24px 0;
+            border-top: 1px solid rgba(196, 145, 58, 0.18);
+        }
+
+        .invitation-card-wrapper {
+            position: relative;
+            max-width: 450px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 12px;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(255, 182, 193, 0.4);
+            border: 1px solid rgba(196, 145, 58, 0.3);
+        }
+
+        .invitation-card-wrapper img {
+            width: 100%;
+            border-radius: 6px;
+            cursor: zoom-in;
+        }
+
+        .flower-corner {
+            position: absolute;
+            font-size: 1.4rem;
+            z-index: 2;
+        }
+
+        .tl { top: -10px; left: -8px; }
+        .tr { top: -10px; right: -8px; }
+        .bl { bottom: -10px; left: -8px; }
+        .br { bottom: -10px; right: -8px; }
+
+        footer {
+            text-align: center;
+            padding: 30px 18px 20px;
+            background: var(--maroon-deep);
+            color: var(--gold-light);
+        }
+
+        footer h2 {
+            margin: 0 0 10px;
+            font: 400 2.25rem/1.1 "Great Vibes", cursive;
+        }
+
+        footer p {
+            max-width: 520px;
+            margin: 0 auto;
+            color: #fff7e8;
+            font: 500 1rem/1.6 "Cormorant Garamond", serif;
+        }
+
+        footer .footer-hashtag {
+            margin-top: 10px;
+            color: var(--gold-light);
+            font: 600 0.75rem/1.4 "Cinzel", serif;
+            letter-spacing: 0.12em;
+        }
+
+        .footer-credits {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 14px;
+            margin: 20px auto 0;
+            padding-top: 12px;
+            max-width: 560px;
+            border-top: 1px solid rgba(226, 176, 90, 0.28);
+            color: rgba(255, 247, 232, 0.76);
+            font: 500 0.72rem/1.5 "Cinzel", serif;
+        }
+
+        .footer-credits a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .footer-credits a:hover,
+        .footer-credits a:focus-visible {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 6000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            background: rgba(8, 8, 8, 0.92);
+        }
+
+        .lightbox[hidden] { display: none !important; }
+
+        .lightbox img {
+            max-width: min(94vw, 860px);
+            max-height: 88vh;
+            border-radius: 12px;
+            object-fit: contain;
+        }
+
+        .lightbox__close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 0;
+            background: #fff;
+            color: #30141a;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .petal {
+            position: fixed;
+            top: -24px;
+            z-index: 5500;
+            pointer-events: none;
+            animation: fall linear forwards;
+            user-select: none;
+            opacity: 0.72;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(540deg);
+                opacity: 0.1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .story-card img {
+                height: 210px;
+            }
+
+            .story-card h2 {
+                font-size: 2.7rem;
+            }
+
+            .story-card p {
+                font-size: 1.08rem;
+            }
+
+            .couple-card {
+                gap: 14px;
+                padding: 15px;
+            }
+
+            .couple-card img {
+                width: 94px;
+                height: 94px;
+            }
+
+            .couple-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .couple-role {
+                font-size: 0.76rem;
+            }
+
+            .couple-card p {
+                font-size: 0.96rem;
+            }
+
+            .horizontalSwiper .swiper-slide {
+                width: 280px;
+                height: 210px;
+            }
+
+            .preWeddingSwiper .swiper-slide {
+                width: 235px;
+                height: 350px;
+            }
+
+            .map-container {
+                height: 190px;
+            }
+        }
+    </style>
+</head>
+
+<body class="is-locked">
+
+    <audio id="introMusic" src="Edd_Sheeran_-_Perfect_(mp3.pm).mp3" preload="auto" autoplay loop muted hidden></audio>
+    <audio id="weddingMusic" src="Vachindamma-Vachindamma.mp3" preload="auto" loop hidden></audio>
+
+    <div id="teaser" class="teaser" role="dialog" aria-modal="true" aria-labelledby="teaserTitle">
+        <video id="teaserVideo" class="teaser__video" muted playsinline autoplay loop preload="auto" aria-hidden="true">
+            <source src="Teaser.mp4" type="video/mp4" />
+        </video>
+        <div class="teaser__content">
+            <p class="eyebrow eyebrow--light">A Love Story Begins</p>
+            <h1 id="teaserTitle" class="teaser__title">Pavi Found Her Abhi</h1>
+            <p class="teaser__text">
+                Two seekers. Two trails. One heartbeat.<br />
+                Open your invitation and step into their forever.
+            </p>
+            <button id="enterBtn" class="btn btn--primary" type="button">Open Invitation</button>
+        </div>
+        <h6 class="teaser-credit">by the_sneha_11</h6>
+    </div>
+
+    <main id="mainContent" class="main-content">
+
+        <section class="hero">
+            <div class="swiper hero-slider">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" style="background-image: url('IMG_1345.JPG')"></div>
+                    
+                    <div class="swiper-slide" style="background-image: url('IMG_1349.JPG')"></div>
+                   
+             
+                     <div class="swiper-slide" style="background-image: url('IMG_1341.JPG')"></div>
+                    <div class="swiper-slide" style="background-image: url('IMG_1357.JPG')"></div>
+             
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
+            <div class="hero-content">
+                
+                <h1 class="hero-names">Pavithra M. &amp;<br />Purna Abhishek V.</h1>
+                <p class="hero-date">14 &amp; 15 November 2026</p>
+                <p class="hero-date">Sri Lakshmi Venkateshwara Kalyana Mantapa, Bengaluru</p>
+            </div>
+
+            <button id="scrollDownBtn" class="scroll-indicator" type="button" aria-label="Scroll down to view more">
+                ↓
+            </button>
+        </section>
+
+        <section class="section">
+            <div class="full-width-card">
+                <img src="IMG_1241.JPG" alt="Featured moment" />
+            </div>
+        </section>
+
+       <section class="section">
+            <div class="container couple-intro">
+                <p class="couple-intro-title">Bride &amp; Groom</p>
+
+                <div class="couple-card">
+                    <img src="8a07bb58-7b13-4b6b-b256-9d8d804ad6b2.jpeg" alt="Groom" />
+                    <div>
+                        <h3>Purna Abhishek V.</h3>
+                        <p class="couple-role">The Bike Rider</p>
+                    
+                    </div>
+                </div>
+
+                <div class="couple-card">
+                    <img src="4082245e-2d34-4793-a504-776f5b6eb6dc.jpeg" alt="Bride" />
+                    <div>
+                        <h3>Pavithra M.</h3>
+                        <p class="couple-role">The Adventurous Seeker</p>
+                 
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="full-width-card">
+                <img src="IMG_1343.JPG" alt="Featured couple" />
+            </div>
+        </section>
+
+         <section class="section">
+            <div class="container story-card">
+                <img src="IMG_1233.JPG" alt="Our Story" />
+                <div class="story-card-content">
+                    <h2>Our Story</h2>
+                    <p>
+                        She climbed mountains to find her peace. He chased highways to find his freedom.<br />
+                        Two seekers, two trails, one heartbeat.<br />
+                        Now one team, one road, one home.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <section id="video" class="video-stage section" aria-labelledby="videoTitle">
+            <video id="saveDateBgVideo" class="video-stage__bg" muted loop playsinline autoplay preload="metadata"
+                poster="IMG_1231.JPG" aria-hidden="true">
+                <source src="Save The date.mp4" type="video/mp4" />
+            </video>
+            <div class="video-stage__overlay" aria-hidden="true"></div>
+            <div class="container video-stage__content">
+                
+                <h2 id="videoTitle">Save The Date</h2>
+                <p>A creative chapter from their journey, presented as a cinematic moment.</p>
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="eventDetailsTitle">
+            <div class="container">
+                
+                <h3 id="eventDetailsTitle" class="event-details__title">Two days, one beautiful beginning</h2>
+                <div class="event-days">
+                    <article class="event-day">
+                        <p class="event-day__label">Day One | Reception</p>
+                        <h3>Saturday, 14 November 2026</h3>
+                        <p>6:30 PM onwards</p>
+                    </article>
+                    <article class="event-day">
+                        <p class="event-day__label">Day Two | Wedding Ceremony</p>
+                        <h3>Sunday, 15 November 2026</h3>
+                        <p><strong>Muhurtham:</strong> 10:18 AM to 11:36 AM<br /><strong>Lagnam:</strong> Dhanur</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-kicker">Join Our Celebration</p>
+            <div class="container venue-wrapper">
+                <div class="venue-info">
+                    <h3>Sri Lakshmi Venkateshwara Kalyana Mantapa</h3>
+                    <p>#18/10, 22nd Cross, H.B.R Layout 5th Block,<br />Ashwath Nagar, Bengaluru - 560043</p>
+                    <a class="btn btn--primary venue-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Sri+Lakshmi+Venkateshwara+Kalyana+Mantapa+HBR+Layout" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+                </div>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps?q=Sri+Lakshmi+Venkateshwara+Kalyana+Mantapa+HBR+Layout&amp;output=embed"
+                        width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+
+        
+
+        <footer>
+            <h2>Pavithra M. &amp; Purna Abhishek V.</h2>
+            <p>With grateful hearts, we invite you to celebrate our wedding. Your presence and blessings will make our special day even more meaningful.</p>
+            <p class="footer-hashtag">#PaviFoundHerAbhi</p>
+            <div class="footer-credits" aria-label="Website and contact details">
+                <span>Website by <a href="https://www.instagram.com/the_sneha_11/" target="_blank" rel="noopener noreferrer">the_sneha_11</a></span>
+                <a href="tel:+917276491973">Contact: 7276491973</a>
+                
+            </div>
+        </footer>
+    </main>
+
+    <div id="lightbox" class="lightbox" hidden>
+        <button id="lightboxClose" class="lightbox__close" type="button" aria-label="Close viewer">✕</button>
+        <img id="lightboxImage" alt="Expanded wedding image" />
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        (() => {
+            const teaser = document.getElementById("teaser");
+            const teaserVideo = document.getElementById("teaserVideo");
+            const enterBtn = document.getElementById("enterBtn");
+            const mainContent = document.getElementById("mainContent");
+            const scrollDownBtn = document.getElementById("scrollDownBtn");
+            const introMusic = document.getElementById("introMusic");
+            const weddingMusic = document.getElementById("weddingMusic");
+
+            const saveDateBgVideo = document.getElementById("saveDateBgVideo");
+            let musicStartPositionSet = false;
+            let introMusicStarted = false;
+            let switchedToWedding = false;
+            let introRetryTimer;
+            let introStartPositionSet = false;
+
+            function removeIntroStartListeners() {
+                document.removeEventListener("pointerdown", startIntroMusic);
+                document.removeEventListener("touchstart", startIntroMusic);
+                document.removeEventListener("keydown", startIntroMusic);
+                window.removeEventListener("load", startIntroMusic);
+            }
+
+            function startIntroMusic() {
+                if (switchedToWedding || introMusicStarted) return;
+                if (introMusic.readyState < 1) {
+                    introMusic.addEventListener("loadedmetadata", startIntroMusic, { once: true });
+                    return;
+                }
+                introMusic.muted = true;
+                introMusic.volume = 0.35;
+                if (!introStartPositionSet) {
+                    introMusic.currentTime = 2;
+                    introStartPositionSet = true;
+                }
+                const playPromise = introMusic.play();
+                if (playPromise && typeof playPromise.then === "function") {
+                    playPromise.then(() => {
+                        introMusicStarted = true;
+                        setTimeout(() => {
+                            if (!switchedToWedding) introMusic.muted = false;
+                        }, 120);
+                        clearInterval(introRetryTimer);
+                        removeIntroStartListeners();
+                    }).catch(() => {});
+                } else if (!introMusic.paused) {
+                    introMusicStarted = true;
+                    setTimeout(() => {
+                        if (!switchedToWedding) introMusic.muted = false;
+                    }, 120);
+                    clearInterval(introRetryTimer);
+                    removeIntroStartListeners();
+                }
+            }
+
+            function startWeddingMusic() {
+                if (weddingMusic.readyState < 1) {
+                    weddingMusic.addEventListener("loadedmetadata", startWeddingMusic, { once: true });
+                    return;
+                }
+
+                weddingMusic.volume = 0.4;
+                if (!musicStartPositionSet) {
+                    weddingMusic.currentTime = 3;
+                    musicStartPositionSet = true;
+                }
+                if (weddingMusic.paused) {
+                    weddingMusic.play().catch(() => {});
+                }
+            }
+
+            function switchToWeddingMusic() {
+                switchedToWedding = true;
+                clearInterval(introRetryTimer);
+                removeIntroStartListeners();
+                introMusic.pause();
+                introMusic.currentTime = 0;
+                startWeddingMusic();
+            }
+
+            document.addEventListener("pointerdown", startIntroMusic, { passive: true });
+            document.addEventListener("touchstart", startIntroMusic, { passive: true });
+            document.addEventListener("keydown", startIntroMusic);
+            window.addEventListener("load", startIntroMusic);
+            document.addEventListener("visibilitychange", () => {
+                if (document.visibilityState === "visible") startIntroMusic();
+            });
+            introRetryTimer = setInterval(startIntroMusic, 1500);
+            startIntroMusic();
+
+            function openInvitation() {
+                teaser.classList.add("is-hidden");
+                document.body.classList.remove("is-locked");
+                teaserVideo.pause();
+                mainContent.classList.add("visible");
+                saveDateBgVideo.play().catch(() => {});
+                switchToWeddingMusic();
+            }
+
+            teaserVideo.loop = true;
+            teaserVideo.play().catch(() => {});
+
+            enterBtn.addEventListener("click", openInvitation);
+
+            if (scrollDownBtn) {
+                scrollDownBtn.addEventListener("click", () => {
+                    const nextSection = document.querySelector(".hero + .section");
+                    if (nextSection) {
+                        nextSection.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                });
+            }
+
+            new Swiper(".hero-slider", {
+                effect: "fade",
+                loop: true,
+                speed: 1800,
+                autoplay: { delay: 2200, disableOnInteraction: false },
+                navigation: {
+                    nextEl: ".hero-slider .swiper-button-next",
+                    prevEl: ".hero-slider .swiper-button-prev"
+                }
+            });
+
+            new Swiper(".horizontalSwiper", {
+                slidesPerView: "auto",
+                centeredSlides: true,
+                spaceBetween: 14,
+                loop: true,
+                speed: 1000,
+                autoplay: { delay: 3000, disableOnInteraction: false },
+                navigation: {
+                    nextEl: ".horizontalSwiper .swiper-button-next",
+                    prevEl: ".horizontalSwiper .swiper-button-prev"
+                }
+            });
+
+            new Swiper(".preWeddingSwiper", {
+                effect: "coverflow",
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: "auto",
+                loop: true,
+                speed: 1000,
+                coverflowEffect: {
+                    rotate: 24,
+                    stretch: 0,
+                    depth: 110,
+                    modifier: 1,
+                    slideShadows: true
+                },
+                pagination: {
+                    el: ".preWeddingSwiper .swiper-pagination",
+                    clickable: true
+                },
+                navigation: {
+                    nextEl: ".preWeddingSwiper .swiper-button-next",
+                    prevEl: ".preWeddingSwiper .swiper-button-prev"
+                },
+                autoplay: { delay: 2600, disableOnInteraction: false }
+            });
+
+            function makePetal() {
+                const petal = document.createElement("span");
+                petal.className = "petal";
+                petal.textContent = "🌸";
+                petal.style.left = `${Math.random() * 100}vw`;
+                petal.style.fontSize = `${12 + Math.random() * 10}px`;
+                petal.style.animationDuration = `${7 + Math.random() * 5}s`;
+                document.body.appendChild(petal);
+                setTimeout(() => petal.remove(), 13000);
+            }
+
+            setInterval(makePetal, 1400);
+
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImage = document.getElementById("lightboxImage");
+            const lightboxClose = document.getElementById("lightboxClose");
+
+            function openLightbox(src) {
+                lightboxImage.src = src;
+                lightbox.hidden = false;
+                document.body.classList.add("is-locked");
+            }
+
+            function closeLightbox() {
+                lightbox.hidden = true;
+                document.body.classList.remove("is-locked");
+            }
+
+            document.querySelectorAll(".horizontalSwiper img, .preWeddingSwiper img, #inviteCardImage").forEach((img) => {
+                img.style.cursor = "zoom-in";
+                img.addEventListener("click", () => openLightbox(img.src));
+            });
+
+            lightboxClose.addEventListener("click", closeLightbox);
+            lightbox.addEventListener("click", (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+
+            document.addEventListener("keydown", (e) => {
+                if (!lightbox.hidden && e.key === "Escape") closeLightbox();
+            });
+        })();
+    </script>
+</body>
+
+</html>
